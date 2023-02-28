@@ -1,16 +1,15 @@
-function wsol = solveODE()
-n = 0.5;
+function wsol = solveODE(n, stoptime, T0)
+
 
 K = 150; % degrees Celsius
 x_f = 0.1;
 E_1 = 1.4; % eV
 A_1 = 1.25 * 10^17;
 k_B = 8.617 * 10^-5;
-T0 = 80+273;
+T0 = T0 + 273;
 
 abserr = 1.0e-8;
 relerr = 1.0e-6;
-stoptime = 166;
 numpoints = 250;
 t = linspace(0, stoptime, numpoints);
 
@@ -20,9 +19,9 @@ w0 = [x_f, T0];
 options = odeset('RelTol',relerr,'AbsTol',abserr);
 
 wsol = ode45(@(t,w)vectorfield(w,t,p), t, w0, options);
-plot(wsol.x, wsol.y(1, :));
-figure;
-plot(wsol.x, wsol.y(2, :));
+%plot(wsol.x, wsol.y(1, :));
+%figure;
+%plot(wsol.x, wsol.y(2, :));
     
     function f = vectorfield(w, t, p) %#ok<INUSL> 
         x1 = w(1);
