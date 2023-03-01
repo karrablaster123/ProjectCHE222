@@ -16,7 +16,7 @@ t = linspace(0, stoptime, numpoints);
 p = [A_1, E_1, k_B, n, K];
 w0 = [x_f, T0];
 
-options = odeset('RelTol',relerr,'AbsTol',abserr);
+options = odeset('RelTol',relerr,'AbsTol',abserr, 'NonNegative', 1);
 
 wsol = ode45(@(t,w)vectorfield(w,t,p), t, w0, options);
 %plot(wsol.x, wsol.y(1, :));
