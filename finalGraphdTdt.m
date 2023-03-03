@@ -3,7 +3,7 @@ n = [0.2, 0.333, 0.5, 1];
 
 K = 150; % degrees Celsius
 E_1 = 1.4; % eV
-A_1 = 1.25 * 10^17;
+A_1 = 1 * 10^17;
 k_B = 8.617 * 10^-5;
 
 sol = solveODE(n(1), 5000, 80);
@@ -118,12 +118,13 @@ end
 T1 = T1 - 273;
 semilogy(T1, y12, '-.k', 'DisplayName', 'n = 1');
 ylim([0.01 100]);
+xlim([80 220]);
 legend show;
 legend('Location', 'best');
 legendUnq();
-xlabel("Temperature °C");
-ylabel("dT/dt - Semilog Scale");
-
+xlabel("Temperature (°C)");
+ylabel("dT/dt(°C/min) - Semilog Scale");
+set(0,'DefaultLineLineWidth',4)
 function y =  dTdt(K, E_1, k_B, T1, A_1, x1, n)
     y = K*exp(-E_1/(k_B*T1))*A_1*(x1^n);
 end

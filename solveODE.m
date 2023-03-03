@@ -4,7 +4,7 @@ function wsol = solveODE(n, stoptime, T0)
 K = 150; % degrees Celsius
 x_f = 0.1;
 E_1 = 1.4; % eV
-A_1 = 1.25 * 10^17;
+A_1 = 1 * 10^17;
 k_B = 8.617 * 10^-5;
 T0 = T0 + 273;
 
