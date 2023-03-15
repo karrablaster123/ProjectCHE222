@@ -1,19 +1,29 @@
-function wsol = solveODE(n, stoptime, T0)
+function wsol = solveODE(stoptime, T0, p)
 
+arguments
+    stoptime
+    T0
+    p = []
+end
 
 K = 150; % degrees Celsius
 x_f = 0.1;
+n = 0.5;
 E_1 = 1.4; % eV
 A_1 = 1 * 10^17;
 k_B = 8.617 * 10^-5;
 T0 = T0 + 273;
+if isempty(p)
+    p = [A_1, E_1, k_B, n, K];
+end
 
 abserr = 1.0e-8;
 relerr = 1.0e-6;
 numpoints = 250;
 t = linspace(0, stoptime, numpoints);
 
-p = [A_1, E_1, k_B, n, K];
+
+
 w0 = [x_f, T0];
 
 options = odeset('RelTol',relerr,'AbsTol',abserr, 'NonNegative', 1);
