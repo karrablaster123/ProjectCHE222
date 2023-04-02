@@ -1,4 +1,4 @@
-clear vars;
+clear all;
 
 n = 0.5;
 K = 150; % degrees Celsius
