@@ -95,7 +95,8 @@ title(ax1, "Low Surface Area");
 title(ax2, "Low Surface Area");
 title(ax3, "Low Surface Area");
 title(ax4, "Low Surface Area");
-
+set(ax4, 'YScale', 'log')
+%{
 clear xsol ax1 ax2 ax3 ax4 dTdt;
 a = a_H;
 T0 = 80 + 273.15;
@@ -171,7 +172,9 @@ title(ax1, "High Surface Area");
 title(ax2, "High Surface Area");
 title(ax3, "High Surface Area");
 title(ax4, "High Surface Area");
+set(ax4, 'YScale', 'log')
 
+%}
 
 
 function f = ODE(t, x, p)
