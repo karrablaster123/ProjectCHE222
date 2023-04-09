@@ -198,7 +198,7 @@ function f = ODE(t, x, p)
 
     f = [-exp(-E_1/(k_B*T))*A_1*(x_f^n);
         K1*exp(-E_1/(k_B*T))*A_1*(x_f^n) + (K2*A_2*x_i*(a/a0)*exp(-z/z0)*exp(-E_2/(k_B*T)));
-        -exp(-E_2/(k_B*T))*A_2*(x_i^m)*exp(-z/z0);
+        -exp(-E_2/(k_B*T))*A_2*(a/a0)*(x_i^m)*exp(-z/z0);
         A_2*exp(-E_2/(k_B*T))*(x_i^m)*exp(-z/z0)];
 
 end
