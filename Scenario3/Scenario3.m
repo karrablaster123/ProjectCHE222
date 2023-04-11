@@ -23,7 +23,7 @@ abserr = 1.0e-10;
 relerr = 1.0e-8;
 numpoints = 250;
 t = linspace(0, 5000, numpoints);
-options = odeset('RelTol',relerr,'AbsTol',abserr, 'NonNegative', 1);
+options = odeset('RelTol', relerr,'AbsTol', abserr, 'NonNegative', 1);
 
 p = [A_1, E_1, k_B, n, K1, A_2, E_2, m, K2, a, a0, z0];
 x0 = [x_f; T0; x_i; z0];
@@ -58,7 +58,7 @@ writematrix(output, "Low SA.xlsx")
 
 clear dTdt xsol;
 x_f = x_f_H;
-a = a_H;
+a = a_L;
 T0 = 100 + 273.15;
 p = [A_1, E_1, k_B, n, K1, A_2, E_2, m, K2, a, a0, z0];
 x0 = [x_f; T0; x_i; z0];
