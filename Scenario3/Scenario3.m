@@ -1,16 +1,16 @@
 clear all;
-
+%Parameter Definition
 n = 0.5;
 K1 = 150;
-E_1 = 1.4; % eV
+E_1 = 1.4; 
 A_1 = 1.25 * 10^17;
 k_B = 8.617 * 10^-5;
-T0 = 80 + 273.15;
+T0 = 100 + 273.15;
 x_f_L = 0.1;
 x_f_H = 0.16;
 x_f = x_f_L;
 K2 = 325;
-x_i = 0.75; %0.45 0.25
+x_i = 0.75; 
 E_2 = 0.8;
 A_2 = 1e8;
 z0 = 0.15;
@@ -19,17 +19,21 @@ a_H = 6.9;
 a = a_L;
 a0 = 1;
 m = 1;
+
+%Solver parameter definition
 abserr = 1.0e-10;
 relerr = 1.0e-8;
 numpoints = 250;
 t = linspace(0, 5000, numpoints);
 options = odeset('RelTol', relerr,'AbsTol', abserr, 'NonNegative', 1);
 
+%Parameter and initial value loading
 p = [A_1, E_1, k_B, n, K1, A_2, E_2, m, K2, a, a0, z0];
 x0 = [x_f; T0; x_i; z0];
-%warning('off', 'MATLAB:plot:IgnoreImaginaryXYPart');
-xsol = ode15s(@(t,x)ODE(t, x, p), t, x0, options);
+%warning supression
+warning('off', 'MATLAB:plot:IgnoreImaginaryXYPart');
 
+%Plot
 figure;
 ax1 = subplot(3, 1, 1);
 hold on;
@@ -41,22 +45,26 @@ figure;
 ax4 = axes();
 hold on;
 
-T0 = 100 + 273.15;
-x0 = [x_f; T0; x_i; z0];
+%Solve ODE
 xsol = ode15s(@(t,x)ODE(t, x, p), t, x0, options);
+
+%Plot
 plot(ax1, xsol.y(2, :) - 273.15, xsol.y(1, :))
 plot(ax2, xsol.y(2, :) - 273.15, xsol.y(3, :))
 plot(ax3, xsol.y(2, :) - 273.15, xsol.y(4, :))
+%Get dT/dt for each Temperature
 for i = 1:length(xsol.y(1, :))
     x = [xsol.y(1, i) xsol.y(2, i) xsol.y(3, i) xsol.y(4, i)];
     dTdt(:, i) = ODE(0, x, p);
 
 end
 semilogy(ax4, xsol.y(2, :) - 273.15, dTdt(2, :));
-output = [xsol.y; dTdt];
-writematrix(output, "Low SA.xlsx")
+
+%output = [xsol.y; dTdt];
+%writematrix(output, "Low SA.xlsx")
 
 clear dTdt xsol;
+%Repeating same as above for changed parameters
 x_f = x_f_H;
 a = a_L;
 T0 = 100 + 273.15;
@@ -74,8 +82,11 @@ for i = 1:length(xsol.y(1, :))
 
 end
 semilogy(ax4, xsol.y(2, :) - 273.15, dTdt(2, :));
-output = [xsol.y; dTdt];
-writematrix(output, "High SA.xlsx")
+
+%output = [xsol.y; dTdt];
+%writematrix(output, "High SA.xlsx")
+
+%Format Plots
 xlabel(ax1, "Temperature (C)");
 xlabel(ax2, "Temperature (C)");
 xlabel(ax3, "Temperature (C)");
@@ -100,7 +111,7 @@ title(ax3, "Variation of Heating with respect to Surface Area");
 title(ax4, "Variation of Heating with respect to Surface Area");
 set(ax4, 'YScale', 'log')
 
-
+%ODE function
 function f = ODE(t, x, p)
 
     x_f = x(1);
