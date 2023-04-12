@@ -1,5 +1,4 @@
 clear all;
-warning('off', 'MATLAB:plot:IgnoreImaginaryXYPart');
 
 %{
 Scenario 5: Group 21
@@ -287,15 +286,19 @@ set(ax3, 'YScale', 'log')
 
 %Differential Equation Function
 function f = ODE(~, x, p)
-        x1 = x(1);
-        T1 = x(2);
-        A_1 = p(1);
-        E_1 = p(2);
-        k_B = p(3);
-        n = p(4);
-        K = p(5);
+    x1 = x(1);
+    T1 = x(2);
+    A_1 = p(1);
+    E_1 = p(2);
+    k_B = p(3);
+    n = p(4);
+    K = p(5);
 
-        f = [-exp(-E_1/(k_B*T1))*A_1*(x1^n); K*exp(-E_1/(k_B*T1))*A_1*(x1^n)];
+    if x1 < 0
+        x1 = 0;
+    end
+
+    f = [-exp(-E_1/(k_B*T1))*A_1*(x1^n); K*exp(-E_1/(k_B*T1))*A_1*(x1^n)];
 
 end
     

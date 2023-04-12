@@ -29,7 +29,6 @@ options = odeset('RelTol',relerr,'AbsTol',abserr, 'NonNegative', 1);
 %Parameter Array
 p = [A_1, E_1, k_B, n, K1, A_2, E_2, m, K2, a, a0, z0];
 x0 = [x_f; T0; x_i; z0];
-warning('off', 'MATLAB:plot:IgnoreImaginaryXYPart');
 %Solve
 xsol = ode15s(@(t,x)ODE(t, x, p), t, x0, options);
 
@@ -137,6 +136,10 @@ function f = ODE(~, x, p)
     a = p(10);
     a0 = p(11);
     z0 = p(12);
+
+    if x_f < 0
+        x_f = 0;
+    end
 
     f = [-exp(-E_1/(k_B*T))*A_1*(x_f^n);
         ((K1*exp(-E_1/(k_B*T))*A_1*(x_f^n)) + (K2*A_2*x_i*(a/a0)*exp(-z/z0)*exp(-E_2/(k_B*T))));

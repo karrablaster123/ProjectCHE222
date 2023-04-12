@@ -2,7 +2,7 @@ clear all;
 %Parameter Definition
 n = 0.5;
 K1 = 150;
-E_1 = 1.4; 
+E_1 = 1.4;
 A_1 = 1.25 * 10^17;
 k_B = 8.617 * 10^-5;
 T0 = 100 + 273.15;
@@ -30,8 +30,6 @@ options = odeset('RelTol', relerr,'AbsTol', abserr, 'NonNegative', 1);
 %Parameter and initial value loading
 p = [A_1, E_1, k_B, n, K1, A_2, E_2, m, K2, a, a0, z0];
 x0 = [x_f; T0; x_i; z0];
-%warning supression
-warning('off', 'MATLAB:plot:IgnoreImaginaryXYPart');
 
 %Plot
 figure;
@@ -66,7 +64,7 @@ semilogy(ax4, xsol.y(2, :) - 273.15, dTdt(2, :));
 clear dTdt xsol;
 %Repeating same as above for changed parameters
 x_f = x_f_H;
-a = a_L;
+a = a_H;
 T0 = 100 + 273.15;
 p = [A_1, E_1, k_B, n, K1, A_2, E_2, m, K2, a, a0, z0];
 x0 = [x_f; T0; x_i; z0];
@@ -93,10 +91,10 @@ xlabel(ax3, "Temperature (C)");
 ylabel(ax1, "x_f");
 ylabel(ax2, "x_i");
 ylabel(ax3, "z");
-xlim(ax1, [100 220]);
-xlim(ax2, [100 220]);
-xlim(ax3, [100 220]);
-xlim(ax4, [100 220]);
+xlim(ax1, [100 180]);
+xlim(ax2, [100 180]);
+xlim(ax3, [100 180]);
+xlim(ax4, [100 180]);
 ylim(ax4, [10^-1 10^2]);
 xlabel(ax4, "Temperature (C)");
 ylim(ax1, [0 0.25]);
@@ -130,6 +128,10 @@ function f = ODE(t, x, p)
     a = p(10);
     a0 = p(11);
     z0 = p(12);
+
+    if x_f < 0
+        x_f = 0;
+    end
 
     f = [-exp(-E_1/(k_B*T))*A_1*(x_f^n);
         K1*exp(-E_1/(k_B*T))*A_1*(x_f^n) + (K2*A_2*x_i*(a/a0)*exp(-z/z0)*exp(-E_2/(k_B*T)));
