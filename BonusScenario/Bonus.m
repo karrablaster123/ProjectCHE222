@@ -1,6 +1,11 @@
 clear all;
 %{
 Bonus Scenario: Group 21
+Kush Patel - 1007678826
+Sachiel Malik - 1007692098
+Gurjas Singh Chawla - 1007872189
+Uddhava Swaminathan - 1007511122
+
 This code aims to replicate Figure 7 from the paper. It is, in a sense, the
 culmination of all the previous scenarios to provide a reasonable
 approximation to the empirical self-heating of a lithium ion battery

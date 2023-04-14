@@ -2,6 +2,11 @@ clear all;
 
 %{
 Scenario 5: Group 21
+Kush Patel - 1007678826
+Sachiel Malik - 1007692098
+Gurjas Singh Chawla - 1007872189
+Uddhava Swaminathan - 1007511122
+
 The function from Scenario 1 has been taken and parameters have been varied
 to provide insight on their effect on the self-heating of the battery.
 %}
